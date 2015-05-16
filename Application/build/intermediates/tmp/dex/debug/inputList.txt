@@ -1,0 +1,7 @@
+C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\classes\debug
+C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-6f48b609c0d50bbc814497b3b79362765ad78b86.jar
+C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-f2afcf24f798331745c6e85dfc4f8687db1c7371.jar
+C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\classes-cd9c3165bb77c8024b5647686e30f56492cdefab.jar
+C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\classes-fcf282f01e89e9107380a611a2ea9e3f4aa9a12c.jar
+C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-5baf78b1d2ca30ed41deb3e1ead527395a30cfa9.jar
+C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\classes-a9c793247407035397959e3dc70e8cb335fb547e.jar
