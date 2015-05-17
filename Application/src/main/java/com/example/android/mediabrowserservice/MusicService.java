@@ -147,7 +147,7 @@ package com.example.android.mediabrowserservice;
          LogHelper.d(TAG, "onCreate");
 
          mPlayingQueue = new ArrayList<>();
-         mMusicProvider = new MusicProvider();
+         mMusicProvider = new MusicProvider(getApplicationContext());
          mPackageValidator = new PackageValidator(this);
 
          // Start a new MediaSession
@@ -157,7 +157,7 @@ package com.example.android.mediabrowserservice;
          mSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS |
              MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
 
-         mPlayback = new Playback(this, mMusicProvider);
+         mPlayback = new Playback(this, mMusicProvider,getApplicationContext());
          mPlayback.setState(PlaybackState.STATE_NONE);
          mPlayback.setCallback(this);
          mPlayback.start();

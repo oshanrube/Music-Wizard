@@ -19,11 +19,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.MediaMetadata;
 import android.media.MediaPlayer;
 import android.media.session.PlaybackState;
 import android.net.wifi.WifiManager;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.text.TextUtils;
 
@@ -74,6 +77,7 @@ public class Playback implements AudioManager.OnAudioFocusChangeListener,
     private int mAudioFocus = AUDIO_NO_FOCUS_NO_DUCK;
     private AudioManager mAudioManager;
     private MediaPlayer mMediaPlayer;
+    AssetManager mngr;
 
     private IntentFilter mAudioNoisyIntentFilter =
             new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
@@ -93,7 +97,8 @@ public class Playback implements AudioManager.OnAudioFocusChangeListener,
         }
     };
 
-    public Playback(MusicService service, MusicProvider musicProvider) {
+    public Playback(MusicService service, MusicProvider musicProvider, Context myContext) {
+        mngr = myContext.getAssets();
         this.mService = service;
         this.mMusicProvider = musicProvider;
         this.mAudioManager = (AudioManager) service.getSystemService(Context.AUDIO_SERVICE);
@@ -162,14 +167,28 @@ public class Playback implements AudioManager.OnAudioFocusChangeListener,
                     MediaIDHelper.extractMusicIDFromMediaID(item.getDescription().getMediaId()));
 
             String source = track.getString(MusicProvider.CUSTOM_METADATA_TRACK_SOURCE);
+            String file_source = track.getString(MusicProvider.CUSTOM_METADATA_TRACK_FILE_SOURCE);
 
             try {
                 createMediaPlayerIfNeeded();
 
                 mState = PlaybackState.STATE_BUFFERING;
+                try {
+                    AssetFileDescriptor afd = mngr.openFd(file_source);
+                    mMediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    mMediaPlayer.setDataSource(source);
+                }
 
-                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                mMediaPlayer.setDataSource(source);
+               //
+                //mMediaPlayer.setDataSource(file_source);
+//                mMediaPlayer.prepare();
+//                mMediaPlayer.start();
+                        //
+//                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//                mMediaPlayer.setDataSource(source);
 
                 // Starts preparing the media player in the background. When
                 // it's done, it will call our OnPreparedListener (that is,

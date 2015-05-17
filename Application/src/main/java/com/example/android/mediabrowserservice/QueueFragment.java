@@ -333,7 +333,10 @@ public class QueueFragment extends Fragment {
             // async fetch the album art icon
             String artUrl = song.getIconUri().toString();
             art = AlbumArtCache.getInstance().getBigImage(artUrl);
-
+            if(art == null)
+            {
+                //art = getActivity().getAssets().open("music.json");
+            }
         }
         ImageView album_art = (ImageView) rootView.findViewById(R.id.album_art);
         album_art.setImageBitmap(art);

@@ -16,6 +16,8 @@
 
 package com.example.android.mediabrowserservice.model;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.media.MediaMetadata;
 import android.os.AsyncTask;
 
@@ -51,6 +53,8 @@ public class MusicProvider {
         "http://storage.googleapis.com/automotive-media/music.json";
 
     public static final String CUSTOM_METADATA_TRACK_SOURCE = "__SOURCE__";
+    public static final String CUSTOM_METADATA_TRACK_FILE_SOURCE = "__FILE_SOURCE__";
+
 
     private static final String JSON_MUSIC = "music";
     private static final String JSON_TITLE = "title";
@@ -68,6 +72,7 @@ public class MusicProvider {
     private final ConcurrentMap<String, MutableMediaMetadata> mMusicListById;
 
     private final Set<String> mFavoriteTracks;
+    AssetManager mngr;
 
     enum State {
         NON_INITIALIZED, INITIALIZING, INITIALIZED
@@ -79,7 +84,8 @@ public class MusicProvider {
         void onMusicCatalogReady(boolean success);
     }
 
-    public MusicProvider() {
+    public MusicProvider(Context myContext) {
+        mngr = myContext.getAssets();
         mMusicListByGenre = new ConcurrentHashMap<>();
         mMusicListById = new ConcurrentHashMap<>();
         mFavoriteTracks = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
@@ -221,7 +227,9 @@ public class MusicProvider {
 
                 int slashPos = CATALOG_URL.lastIndexOf('/');
                 String path = CATALOG_URL.substring(0, slashPos + 1);
-                JSONObject jsonObj = fetchJSONFromUrl(CATALOG_URL);
+                //JSONObject jsonObj = fetchJSONFromUrl(CATALOG_URL);
+                JSONObject jsonObj = loadJSONFromAsset();
+
                 if (jsonObj == null) {
                     return;
                 }
@@ -253,6 +261,7 @@ public class MusicProvider {
         String artist = json.getString(JSON_ARTIST);
         String genre = json.getString(JSON_GENRE);
         String source = json.getString(JSON_SOURCE);
+        String file_source = json.getString(JSON_SOURCE);
         String iconUrl = json.getString(JSON_IMAGE);
         int trackNumber = json.getInt(JSON_TRACK_NUMBER);
         int totalTrackCount = json.getInt(JSON_TOTAL_TRACK_COUNT);
@@ -278,6 +287,7 @@ public class MusicProvider {
         return new MediaMetadata.Builder()
                 .putString(MediaMetadata.METADATA_KEY_MEDIA_ID, id)
                 .putString(CUSTOM_METADATA_TRACK_SOURCE, source)
+                .putString(CUSTOM_METADATA_TRACK_FILE_SOURCE, file_source)
                 .putString(MediaMetadata.METADATA_KEY_ALBUM, album)
                 .putString(MediaMetadata.METADATA_KEY_ARTIST, artist)
                 .putLong(MediaMetadata.METADATA_KEY_DURATION, duration)
@@ -321,5 +331,31 @@ public class MusicProvider {
                 }
             }
         }
+    }
+
+    private JSONObject loadJSONFromAsset() {
+        String json = null;
+        try {
+
+            InputStream is = mngr.open("music.json");
+
+            int size = is.available();
+
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+            return new JSONObject(json);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            LogHelper.e(TAG, "Failed to parse the json for media list", e);
+            return null;
+        }
+
     }
 }
