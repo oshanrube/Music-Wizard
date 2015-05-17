@@ -17,6 +17,7 @@ package com.example.android.mediabrowserservice;
 
 import android.app.Activity;
 import android.media.session.MediaSession;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class QueueAdapter extends ArrayAdapter<MediaSession.QueueItem> {
     public void setActiveQueueItemId(long id) {
         this.mActiveQueueItemId = id;
     }
+
 
     private static class ViewHolder {
         ImageView mImageView;

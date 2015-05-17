@@ -18,7 +18,7 @@
     <dimen name="now_playing_padding">16dp</dimen>
     <!-- From: file:/C:/Users/Oshan/Documents/GitHub/MediaBrowserService/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="app_name">MediaBrowserService Sample</string>
+    <string name="app_name">Music Wizard</string>
     <string name="browse_genre_subtitle">Songs by genre</string>
     <string name="browse_genres">Genres</string>
     <string name="browse_musics_by_genre_subtitle">%1$s songs</string>

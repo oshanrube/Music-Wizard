@@ -158,26 +158,28 @@ public class QueueFragment extends Fragment {
 
         mQueueAdapter = new QueueAdapter(getActivity());
 
-        //TODO
-//        ListView mListView = (ListView) rootView.findViewById(R.id.list_view);
-//        mListView.setAdapter(mQueueAdapter);
-//        mListView.setFocusable(true);
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                MediaSession.QueueItem item = mQueueAdapter.getItem(position);
-//                mTransportControls.skipToQueueItem(item.getQueueId());
-//            }
-//        });
-
         Button all_songs_btn = (Button) rootView.findViewById(R.id.all_songs_btn);
-        all_songs_btn.setOnClickListener(new OnClickListener() {
+            all_songs_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //open the music player
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.container, BrowseFragment.newInstance("__BY_GENRE__/Rock"))
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+        Button playlist_btn = (Button) rootView.findViewById(R.id.playlist_btn);
+        playlist_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //open the music player
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, BrowseFragment.newInstance(null))
+                        .addToBackStack(null)
+                        .commit();
             }
         });
-
 
         mMediaBrowser = new MediaBrowser(getActivity(),
                 new ComponentName(getActivity(), MusicService.class),

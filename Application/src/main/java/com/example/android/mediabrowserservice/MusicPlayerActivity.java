@@ -18,6 +18,9 @@ package com.example.android.mediabrowserservice;
 import android.app.Activity;
 import android.media.browse.MediaBrowser;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 /**
  * Main activity for the music player.
@@ -45,6 +48,7 @@ public class MusicPlayerActivity extends Activity
                     .replace(R.id.container, queueFragment)
                     .addToBackStack(null)
                     .commit();
+
         } else if (item.isBrowsable()) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, BrowseFragment.newInstance(item.getMediaId()))
@@ -52,4 +56,4 @@ public class MusicPlayerActivity extends Activity
                     .commit();
         }
     }
-}
+};
