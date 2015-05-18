@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.media.MediaMetadata;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 
 import com.example.android.mediabrowserservice.utils.LogHelper;
 
@@ -29,6 +30,8 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,6 +39,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -263,6 +267,7 @@ public class MusicProvider {
         String source = json.getString(JSON_SOURCE);
         String file_source = json.getString(JSON_SOURCE);
         String iconUrl = json.getString(JSON_IMAGE);
+        String fullIconUrl = json.getString(JSON_IMAGE);
         int trackNumber = json.getInt(JSON_TRACK_NUMBER);
         int totalTrackCount = json.getInt(JSON_TOTAL_TRACK_COUNT);
         int duration = json.getInt(JSON_DURATION) * 1000; // ms
@@ -274,7 +279,7 @@ public class MusicProvider {
             source = basePath + source;
         }
         if (!iconUrl.startsWith("http")) {
-            iconUrl = basePath + iconUrl;
+            fullIconUrl = basePath + iconUrl;
         }
         // Since we don't have a unique ID in the server, we fake one using the hashcode of
         // the music source. In a real world app, this could come from the server.
@@ -334,6 +339,11 @@ public class MusicProvider {
     }
 
     private JSONObject loadJSONFromAsset() {
+
+        //////////////
+        //ArrayList<HashMap<String, String>> songsList =  getPlayList();
+        /////////////
+
         String json = null;
         try {
 
@@ -357,5 +367,33 @@ public class MusicProvider {
             return null;
         }
 
+    }
+
+    /**
+     * Function to read all mp3 files from sdcard
+     * and store the details in ArrayList
+     * */
+    public ArrayList<HashMap<String, String>> getPlayList(){
+        String MEDIA_PATH = new String(MediaStore.Audio.Media.getContentUri("internal").toString());
+        ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
+        File home = new File(MEDIA_PATH);
+
+        if (home.listFiles(new FileExtensionFilter()).length > 0) {
+            for (File file : home.listFiles(new FileExtensionFilter())) {
+                HashMap<String, String> song = new HashMap<String, String>();
+                song.put("songTitle", file.getName().substring(0, (file.getName().length() - 4)));
+                song.put("songPath", file.getPath());
+
+                // Adding each song to SongList
+                songsList.add(song);
+            }
+        }
+        // return songs list array
+        return songsList;
+    }
+}
+class FileExtensionFilter implements FilenameFilter {
+    public boolean accept(File dir, String name) {
+        return (name.endsWith(".mp3") || name.endsWith(".MP3"));
     }
 }

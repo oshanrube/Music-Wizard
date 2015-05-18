@@ -18,8 +18,12 @@ package com.example.android.mediabrowserservice;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.DialogInterface;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.media.MediaDescription;
 import android.media.MediaMetadata;
 import android.media.browse.MediaBrowser;
@@ -40,6 +44,8 @@ import android.view.View.OnClickListener;
 
 import com.example.android.mediabrowserservice.utils.LogHelper;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -57,7 +63,7 @@ public class QueueFragment extends Fragment {
     private MediaController.TransportControls mTransportControls;
     private MediaController mMediaController;
     private PlaybackState mPlaybackState;
-
+    AssetManager mngr;
     private View rootView;
     private QueueAdapter mQueueAdapter;
 
@@ -143,7 +149,7 @@ public class QueueFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.now_playing, container, false);
-
+        mngr = getActivity().getAssets();
         mSkipPrevious = (ImageButton) rootView.findViewById(R.id.skip_previous);
         mSkipPrevious.setEnabled(false);
         mSkipPrevious.setOnClickListener(mButtonListener);
@@ -331,15 +337,33 @@ public class QueueFragment extends Fragment {
             // This sample assumes the iconUri will be a valid URL formatted String, but
             // it can actually be any valid Android Uri formatted String.
             // async fetch the album art icon
+            ImageView album_art = (ImageView) rootView.findViewById(R.id.album_art);
+            final String CATALOG_URL =
+                    "http://storage.googleapis.com/automotive-media/music.json";
             String artUrl = song.getIconUri().toString();
-            art = AlbumArtCache.getInstance().getBigImage(artUrl);
-            if(art == null)
-            {
-                //art = getActivity().getAssets().open("music.json");
+
+            //check local
+            try {
+                InputStream ims = mngr.open(artUrl);
+                // load image
+                // get input stream
+                // load image as Drawable
+                Drawable d = Drawable.createFromStream(ims, null);
+                // set image to ImageView
+                album_art.setImageDrawable(d);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+
+                int slashPos = CATALOG_URL.lastIndexOf('/');
+                String basePath = CATALOG_URL.substring(0, slashPos + 1);
+                art = AlbumArtCache.getInstance().getBigImage(basePath+artUrl);
+                if(art != null) {
+                    album_art.setImageBitmap(art);
+                    album_art.setBackground(null);
+                }
             }
+
         }
-        ImageView album_art = (ImageView) rootView.findViewById(R.id.album_art);
-        album_art.setImageBitmap(art);
-        album_art.setBackground(null);
+
     }
 }
