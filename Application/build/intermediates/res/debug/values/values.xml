@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/MediaBrowserService/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.2/res/values/values.xml -->
+    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/Music-Wizard/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.2/res/values/values.xml -->
     <eat-comment/>
     <color name="cardview_dark_background">#FF202020</color>
     <color name="cardview_light_background">#FFFAFAFA</color>
@@ -10,34 +10,34 @@
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
     <dimen name="cardview_default_radius">2dp</dimen>
-    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/MediaBrowserService/Application/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/Music-Wizard/Application/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="fragment_list_padding">16dp</dimen>
     <dimen name="list_item_padding">4dp</dimen>
     <dimen name="margin_text_view">6dp</dimen>
     <dimen name="now_playing_padding">16dp</dimen>
-    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/MediaBrowserService/Application/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/Music-Wizard/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">Music Wizard</string>
     <string name="browse_genre_subtitle">Songs by genre</string>
     <string name="browse_genres">Genres</string>
     <string name="browse_musics_by_genre_subtitle">%1$s songs</string>
     <string name="error_cannot_skip">Cannot skip</string>
-    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/MediaBrowserService/Application/src/main/res/values/strings_notifications.xml -->
+    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/Music-Wizard/Application/src/main/res/values/strings_notifications.xml -->
     <eat-comment/>
     <string name="error_empty_metadata">Empty metadata!</string>
-    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/MediaBrowserService/Application/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/Music-Wizard/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="error_loading_media">Error Loading Media</string>
     <string name="error_no_metadata">Unable to retrieve metadata.</string>
     <string name="favorite">Favorite</string>
-    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/MediaBrowserService/Application/src/main/res/values/strings_notifications.xml -->
+    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/Music-Wizard/Application/src/main/res/values/strings_notifications.xml -->
     <eat-comment/>
     <string name="label_next">Next</string>
     <string name="label_pause">Pause</string>
     <string name="label_play">Play</string>
     <string name="label_previous">Previous</string>
-    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/MediaBrowserService/Application/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/Music-Wizard/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="no_search_results">No search results.</string>
     <string name="play_item">Play item</string>
@@ -45,7 +45,7 @@
     <string name="random_queue_title">Random music</string>
     <string name="skip_next">Skip to next</string>
     <string name="skip_previous">Skip to previous</string>
-    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/MediaBrowserService/Application/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/Music-Wizard/Application/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="android:Theme.Material">
         <item name="android:colorPrimary">#ffff5722</item>
@@ -68,7 +68,7 @@
          -->
         <item name="android:colorAccent">#ffff5722</item>
     </style>
-    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/MediaBrowserService/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.2/res/values/values.xml -->
+    <!-- From: file:/C:/Users/Oshan/Documents/GitHub/Music-Wizard/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.2/res/values/values.xml -->
     <eat-comment/>
     <style name="CardView">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>

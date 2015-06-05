@@ -12,11 +12,10 @@ apply plugin: 'com.android.application'
 
 
 dependencies {
-
-    compile "com.android.support:support-v4:21.0.2"
-    compile "com.android.support:support-v13:21.0.2"
-    compile "com.android.support:cardview-v7:21.0.2"
-
+    compile 'com.android.support:support-v4:21.0.2'
+    compile 'com.android.support:support-v13:21.0.2'
+    compile 'com.android.support:cardview-v7:21.0.2'
+    compile files('libs/musiXmatchLyricsConnector.jar')
 }
 
 // The sample build uses multiple directories to

@@ -18,6 +18,7 @@ package com.example.android.mediabrowserservice;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -30,11 +31,14 @@ import android.media.browse.MediaBrowser;
 import android.media.session.MediaController;
 import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -43,10 +47,23 @@ import android.widget.TextView;
 import android.view.View.OnClickListener;
 
 import com.example.android.mediabrowserservice.utils.LogHelper;
+import com.musixmatch.lyrics.MissingPluginException;
+import com.musixmatch.lyrics.musiXmatchLyricsConnector;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * A class that shows the Media Queue to the user.
@@ -55,6 +72,7 @@ public class QueueFragment extends Fragment {
 
     private static final String TAG = LogHelper.makeLogTag(QueueFragment.class.getSimpleName());
 
+    private musiXmatchLyricsConnector mLyricsPlugin = null;
     private ImageButton mSkipNext;
     private ImageButton mSkipPrevious;
     private ImageButton mPlayPause;
@@ -192,6 +210,85 @@ public class QueueFragment extends Fragment {
                 mConnectionCallback, null);
 
 
+        mLyricsPlugin = new musiXmatchLyricsConnector(getActivity());
+        mLyricsPlugin.setLoadingMessage("Loading", "Music wizard is loading lyrics for your song..");
+
+        rootView.findViewById(R.id.lyrics_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    TextView song_name = (TextView) rootView.findViewById(R.id.song_name);
+                    final String trackName = (String) song_name.getText();
+
+                    TextView artist_name = (TextView) rootView.findViewById(R.id.artist_name);
+                    final String artistName = (String) artist_name.getText();
+                    mLyricsPlugin.startLyricsActivity(artistName, trackName);
+                } catch (MissingPluginException e) {
+                    mLyricsPlugin.downloadLyricsPlugin();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //facebook search
+        //https://www.facebook.com/search/results/?init=quick&q=asd&tas=0.8884490253403783
+        rootView.findViewById(R.id.facebook_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    TextView song_name = (TextView) rootView.findViewById(R.id.song_name);
+                    final String trackName = (String) song_name.getText();
+
+                    TextView artist_name = (TextView) rootView.findViewById(R.id.artist_name);
+                    final String artistName = (String) artist_name.getText();
+
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/search/results/?init=quick&q="+trackName+"+"+artistName));
+                    startActivity(browserIntent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        //youtube search
+        //https://www.youtube.com/results?search_query=asd&page=&utm_source=opensearch
+        rootView.findViewById(R.id.youtube_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    TextView song_name = (TextView) rootView.findViewById(R.id.song_name);
+                    final String trackName = (String) song_name.getText();
+
+                    TextView artist_name = (TextView) rootView.findViewById(R.id.artist_name);
+                    final String artistName = (String) artist_name.getText();
+
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+trackName+"+"+artistName));
+                    startActivity(browserIntent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        //guitar lyrics
+        //http://www.chordie.com/?q=asd&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0
+        rootView.findViewById(R.id.guitar_lyrics).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    TextView song_name = (TextView) rootView.findViewById(R.id.song_name);
+                    final String trackName = (String) song_name.getText();
+
+                    TextView artist_name = (TextView) rootView.findViewById(R.id.artist_name);
+                    final String artistName = (String) artist_name.getText();
+
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.chordie.com/?q="+trackName+"+"+artistName+"&np=0&ps=10&wf=2221&s=RPD&wf=2221&wm=wrd&type=&sp=1&sy=1&cat=&ul=&np=0"));
+                    startActivity(browserIntent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         return rootView;
     }
 
@@ -199,6 +296,7 @@ public class QueueFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (mMediaBrowser != null) {
+            mLyricsPlugin.doBindService();
             mMediaBrowser.connect();
         }
     }
@@ -206,6 +304,7 @@ public class QueueFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        mLyricsPlugin.doUnbindService();
         if (mMediaController != null) {
             mMediaController.unregisterCallback(mSessionCallback);
         }
@@ -366,4 +465,65 @@ public class QueueFragment extends Fragment {
         }
 
     }
+    private void readFromUrl(String artistName, String trackName){
+        /** Create a new textview array to display the results */
+        TextView name[];
+        TextView website[];
+        TextView category[];
+
+        try {
+
+            URL url = new URL("http://api.chartlyrics.com/apiv1.asmx/SearchLyric?artist="+artistName+"&song="+trackName);
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(url.openStream()));
+            doc.getDocumentElement().normalize();
+
+            NodeList nodeList = doc.getElementsByTagName("SearchLyricResult");
+
+            /** Assign textview array lenght by arraylist size */
+            name = new TextView[nodeList.getLength()];
+            website = new TextView[nodeList.getLength()];
+            category = new TextView[nodeList.getLength()];
+
+            ListView listView = (ListView) rootView.findViewById(R.id.list_view);
+            //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
+            ArrayList<String> listItems=new ArrayList<String>();
+
+            //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
+            ArrayAdapter<String> adapter;
+            adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,listItems);
+
+            for (int i = 0; i < nodeList.getLength(); i++) {
+
+                Node node = nodeList.item(i);
+
+                name[i] = new TextView(getActivity());
+                website[i] = new TextView(getActivity());
+                category[i] = new TextView(getActivity());
+
+                Element fstElmnt = (Element) node;
+                NodeList nameList = fstElmnt.getElementsByTagName("Song");
+                Element nameElement = (Element) nameList.item(0);
+                nameList = nameElement.getChildNodes();
+                name[i].setText("Song = " + ((Node) nameList.item(0)).getNodeValue());
+
+                NodeList websiteList = fstElmnt.getElementsByTagName("Artist");
+                Element websiteElement = (Element) websiteList.item(0);
+                websiteList = websiteElement.getChildNodes();
+                website[i].setText("Artist = " + ((Node) websiteList.item(0)).getNodeValue());
+
+                int clickCounter=0;
+                listItems.add("Clicked : "+clickCounter++);
+            }
+            //RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
+            listView.setAdapter(adapter);
+
+
+        } catch (Exception e) {
+            System.out.println("XML Pasing Excpetion = " + e);
+        }
+    }
+
+
 }

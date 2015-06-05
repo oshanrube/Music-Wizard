@@ -18,10 +18,13 @@ package com.example.android.mediabrowserservice;
 import android.app.Activity;
 import android.media.browse.MediaBrowser;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.musixmatch.lyrics.MissingPluginException;
+import com.musixmatch.lyrics.musiXmatchLyricsConnector;
 /**
  * Main activity for the music player.
  */

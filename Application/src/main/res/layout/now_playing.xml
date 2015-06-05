@@ -45,29 +45,6 @@
             android:id="@+id/playlist_btn" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/now_playing_lbl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Now Playing"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.91"
-        android:textAlignment="center" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:layout_gravity="right"
-            android:background="@mipmap/ic_repeat" />
-
-
-    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,31 +66,31 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1">
-        <ImageView
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
+            android:id="@+id/facebook_image"
             android:background="@mipmap/ic_launcher"
             android:layout_marginLeft="50dp" />
 
-        <ImageView
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView3"
+            android:id="@+id/lyrics_image"
             android:background="@mipmap/ic_mike"
             android:layout_marginLeft="10dp" />
 
-        <ImageView
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView4"
+            android:id="@+id/guitar_lyrics"
             android:background="@mipmap/ic_guitar"
             android:layout_marginLeft="10dp" />
 
-        <ImageView
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView5"
+            android:id="@+id/youtube_search"
             android:background="@mipmap/ic_youtube"
             android:layout_marginLeft="10dp" />
     </LinearLayout>
@@ -158,4 +135,10 @@
 
     </LinearLayout>
 
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:layout_weight="0.24">
+    </ListView>
 </LinearLayout>

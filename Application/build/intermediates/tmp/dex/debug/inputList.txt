@@ -1,7 +1,8 @@
-C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\classes\debug
-C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-6f48b609c0d50bbc814497b3b79362765ad78b86.jar
-C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-f2afcf24f798331745c6e85dfc4f8687db1c7371.jar
-C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\classes-cd9c3165bb77c8024b5647686e30f56492cdefab.jar
-C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\classes-fcf282f01e89e9107380a611a2ea9e3f4aa9a12c.jar
-C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-5baf78b1d2ca30ed41deb3e1ead527395a30cfa9.jar
-C:\Users\Oshan\Documents\GitHub\MediaBrowserService\Application\build\intermediates\pre-dexed\debug\classes-a9c793247407035397959e3dc70e8cb335fb547e.jar
+C:\Users\Oshan\Documents\GitHub\Music-Wizard\Application\build\intermediates\classes\debug
+C:\Users\Oshan\Documents\GitHub\Music-Wizard\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-2c58b4f4f4fa7e4b575dc267e92e4f4d2d198014.jar
+C:\Users\Oshan\Documents\GitHub\Music-Wizard\Application\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-f2afcf24f798331745c6e85dfc4f8687db1c7371.jar
+C:\Users\Oshan\Documents\GitHub\Music-Wizard\Application\build\intermediates\pre-dexed\debug\musiXmatchLyricsConnector-c70c0f98ea374ca76aac30a953bb26947552d390.jar
+C:\Users\Oshan\Documents\GitHub\Music-Wizard\Application\build\intermediates\pre-dexed\debug\classes-d92e77dfdb707b3d323094d0ed181c907bbcc97e.jar
+C:\Users\Oshan\Documents\GitHub\Music-Wizard\Application\build\intermediates\pre-dexed\debug\classes-ef22fa205c74433bfff3b33e705bb176569ff2aa.jar
+C:\Users\Oshan\Documents\GitHub\Music-Wizard\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-e1bed26a7c2b24de6dafb051110579f3252b5acc.jar
+C:\Users\Oshan\Documents\GitHub\Music-Wizard\Application\build\intermediates\pre-dexed\debug\classes-3eff20b809d83377c72d0f29723235aa0a532669.jar
