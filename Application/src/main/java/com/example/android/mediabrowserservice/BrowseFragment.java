@@ -18,21 +18,25 @@ package com.example.android.mediabrowserservice;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.media.browse.MediaBrowser;
 import android.media.session.MediaController;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.mediabrowserservice.utils.LogHelper;
+import com.musixmatch.lyrics.MissingPluginException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +131,33 @@ public class BrowseFragment extends Fragment {
 
         View controls = rootView.findViewById(R.id.controls);
         controls.setVisibility(View.GONE);
+
+        //about btn
+        Button about_btn = (Button) rootView.findViewById(R.id.about_btn);
+        about_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                View parent = (View) v.getParent();
+                parent.findViewById(R.id.about_text).setVisibility(View.VISIBLE);
+                parent.findViewById(R.id.return_btn).setVisibility(View.VISIBLE);
+                parent.findViewById(R.id.about_btn).setVisibility(View.GONE);
+                parent.findViewById(R.id.list_view).setVisibility(View.GONE);
+            }
+        });
+
+        Button return_btn = (Button) rootView.findViewById(R.id.return_btn);
+        return_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                View parent = (View) v.getParent();
+                parent.findViewById(R.id.about_text).setVisibility(View.GONE);
+                parent.findViewById(R.id.return_btn).setVisibility(View.GONE);
+                parent.findViewById(R.id.about_btn).setVisibility(View.VISIBLE);
+                parent.findViewById(R.id.list_view).setVisibility(View.VISIBLE);
+            }
+        });
 
         //TODO update view details
         ListView listView = (ListView) rootView.findViewById(R.id.list_view);

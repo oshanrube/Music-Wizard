@@ -47,11 +47,30 @@
             android:contentDescription="@string/skip_next"/>
 
     </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="About"
+        android:id="@+id/about_btn" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/return_btn"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="musiXmatch Lyric Connector Plugin (https://github.com/musixmatch/android-lyrics-plugin-sdk)\n\nandroid media browser service (https://github.com/googlesamples/android-MediaBrowserService)"
+        android:id="@+id/about_text"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
     </ListView>
 
 </LinearLayout><!-- From: file:/C:/Users/Oshan/Documents/GitHub/Music-Wizard/Application/src/main/res/layout/fragment_list.xml -->
